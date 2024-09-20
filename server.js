@@ -2,24 +2,25 @@
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
+const db = require('./db');
 
 const app = express();
 app.use(cors());
 app.use(express.json());  // To parse JSON bodies
 
 // Create a MySQL connection
-const db = mysql.createConnection({
-  host: 'localhost',    // Replace with your host
-  user: 'root',         // Replace with your MySQL username
-  password: 'ox1234', // Replace with your MySQL password
-  database: 'oxGame' // Replace with your database name
-});
+// const db = mysql.createConnection({
+//   host: 'localhost',    // Replace with your host
+//   user: 'root',         // Replace with your MySQL username
+//   password: 'ox1234', // Replace with your MySQL password
+//   database: 'oxGame' // Replace with your database name
+// });
 
 // Connect to the MySQL database
-db.connect((err) => {
-  if (err) throw err;
-  console.log('MySQL connected...');
-});
+// db.connect((err) => {
+//   if (err) throw err;
+//   console.log('MySQL connected...');
+// });
 
 // Route to get all users from the User table
 app.get('/', async (req, res) => {
