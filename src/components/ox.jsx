@@ -32,7 +32,7 @@ function Square({ value, on_square_click }) {
           fontSize: '52px',
         }}
       >
-        <h4 className= {value === 'O' ?'neonTextb':'neonTextP'}>{value}</h4>
+        <h4 className={value === 'O' ? 'neonTextb' : 'neonTextP'}>{value}</h4>
       </Button>
     </animated.div>
   );
@@ -98,18 +98,20 @@ document.head.appendChild(styleSheet);
 
 const Game = ({ profile }) => {
   const [history, set_history] = useState([Array(9).fill(null)]);
-  const [current_move, set_current_move] = useState(0);
-  const [player_symbol, set_player_symbol] = useState('O'); // X or O
-  const [is_bot_turn, set_is_bot_turn] = useState(false);
-  const [score, set_score] = useState(0);
-  const [win_streak, set_win_streak] = useState(0);
+
   const [is_modal_visible, set_is_modal_visible] = useState(false); // Modal state
   const [game_result, set_game_result] = useState(''); // Game result
+
   const [stored_email, set_stored_email] = useState(localStorage.getItem('email') || profile.email); // Retrieve email from localStorage or use profile.email
   const [stored_name, set_stored_name] = useState(localStorage.getItem('name') || profile.name); // Retrieve name from localStorage or use profile.name
+  const [score, set_score] = useState(0);
+  const [win_streak, set_win_streak] = useState(0);
+  const [player_symbol, set_player_symbol] = useState('O'); // X or O
 
+  const [current_move, set_current_move] = useState(0);
   const current_squares = history[current_move];
   const bot_symbol = player_symbol === 'X' ? 'O' : 'X';
+  const [is_bot_turn, set_is_bot_turn] = useState(false);
 
   useEffect(() => {
     // Save profile.email and profile.name to localStorage
@@ -127,7 +129,7 @@ const Game = ({ profile }) => {
     if (current_move === 0 && player_symbol === 'X') {
       setTimeout(() => {
         handle_bot_move(history[0].slice()); // Bot makes the first move
-      }, 500);
+      }, 400);
     }
   }, [is_bot_turn, current_move, player_symbol]);
 
@@ -152,7 +154,7 @@ const Game = ({ profile }) => {
     if (is_bot_turn && !calculate_winner(current_squares)) {
       setTimeout(() => {
         handle_bot_move(current_squares.slice());
-      }, 500);
+      }, 400);
     }
   }, [is_bot_turn]);
 
@@ -209,13 +211,19 @@ const Game = ({ profile }) => {
     set_is_bot_turn(false);
   }
 
+  const [isDisabled, setIsDisabled] = useState(false);
   function handle_reset() {
     set_history([Array(9).fill(null)]);
     set_current_move(0);
-   // set_win_streak(0);
+    // set_win_streak(0);
     const new_player_symbol = player_symbol === 'X' ? 'O' : 'X';
     set_player_symbol(new_player_symbol);
     handle_symbol_choice(new_player_symbol)
+    setIsDisabled(true);
+
+    setTimeout(() => {
+      setIsDisabled(false);
+    }, 500);
   }
 
   function handle_symbol_choice(symbol) {
@@ -284,7 +292,7 @@ const Game = ({ profile }) => {
 
   return (
     <>
-      <Row justify="center" align='middle' style={{ minHeight: '100%',margin:'3%',marginTop:'-15%' }}>
+      <Row justify="center" align='middle' style={{ minHeight: '100%', margin: '3%', marginTop: '-15%' }}>
         <Col xs={24} sm={24} md={8} lg={2}></Col>
         <Col xs={24} sm={24} md={8} lg={8}><Board squares={current_squares} on_square_click={handle_click} /></Col>
         <Col xs={24} sm={24} md={8} lg={4}></Col>
@@ -297,8 +305,8 @@ const Game = ({ profile }) => {
             Win Streak: <span style={{ color: '#E92390', fontWeight: 'bold' }}>{win_streak}</span>
           </div>
           <br />
-          <Button type="primary" size="large" onClick={handle_reset} style={{ backgroundColor: '#845EC2' }}>
-            เปลี่ยนฝั่ง
+          <Button type="primary" size="large" onClick={handle_reset} disabled={isDisabled} style={{ backgroundColor: '#845EC2' }}>
+            switch {bot_symbol}
           </Button>
         </Col>
         <Col xs={24} sm={24} md={8} lg={2}></Col>
