@@ -77,6 +77,7 @@ const styles = `
   background-size: 99.33px 99.33px; /* Size of each square in the grid */
   position: relative;
   opacity:0.8;
+refs/remotes/origin/main
 }
 
 .square {
