@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Button, Row, Col, Card } from 'antd';
+import { Button, Row, Col } from 'antd';
 import axios from 'axios';
 import { useSpring, animated } from '@react-spring/web';
 import Modal from 'react-modal'; // Import react-modal
