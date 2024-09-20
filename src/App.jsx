@@ -57,7 +57,7 @@ function App() {
                     <Row >
                     <Col sm={{ span: 24 }} md={{ span: 24 }}><center><Image preview={false } style={{height:'300px',borderRadius:'30%',opacity: 0.5}} src='/loco.png'/></center></Col>
                         <Col sm={{ span: 1 }} md={{ span: 6 }} >
-                        <Image preview={false} src='/xia-galaxy.gif' style={{ backgroundSize: 'cover',opacity:0.4,borderRadius:'100%',width:'350px'}}/>
+                        <Image preview={false} src='/xia-galaxy.gif' style={{ backgroundSize: 'cover',opacity:0.6,borderRadius:'100%',width:'350px'}}/>
                         </Col>
                         <Col sm={{ span: 22 }} md={{ span: 12 }}>
                             <Game profile={profile} />

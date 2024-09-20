@@ -76,7 +76,7 @@ const styles = `
                     linear-gradient(90deg, #E92390 2px,  transparent  2px);
   background-size: 99.33px 99.33px; /* Size of each square in the grid */
   position: relative;
-  opacity:0.6;
+  opacity:0.8;
 }
 
 .square {
