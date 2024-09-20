@@ -21,12 +21,40 @@ db.connect((err) => {
   console.log('MySQL connected...');
 });
 
+// Route to get all users from the User table
+app.get('/', async (req, res) => {
+  const { email } = req.query;
+
+  // Modify the query depending on whether an email is provided
+  let query = 'SELECT * FROM User';
+  const params = [];
+
+  if (email) {
+    query += ' WHERE email = ?';
+    params.push(email);
+  }
+
+  try {
+    // Execute the query and get the result
+    const [rows] = await db.query(query, params);
+    
+    // Send the result back to the client
+    if (rows.length === 0) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+});
+
 // API endpoint to handle login
 app.post('/login', (req, res) => {
   const { email, name } = req.body;
 
   // Check if the user already exists
-  const query = `SELECT * FROM User WHERE userName = ?`;
+  const query = `SELECT * FROM User WHERE email = ?`;
   db.query(query, [email], (err, result) => {
     if (err) throw err;
 
@@ -35,7 +63,7 @@ app.post('/login', (req, res) => {
       res.json({ score: result[0].score });
     } else {
       // User does not exist, create a new one with score 0
-      const insertQuery = `INSERT INTO User (userName, score) VALUES (?, 0)`;
+      const insertQuery = `INSERT INTO User (email, score) VALUES (?, 0)`;
       db.query(insertQuery, [email], (insertErr, insertResult) => {
         if (insertErr) throw insertErr;
 
@@ -46,21 +74,17 @@ app.post('/login', (req, res) => {
 });
 
 // Add a new route to update the user's score
-app.post('/update-score', (req, res) => {
+app.put('/update-score', async (req, res) => {
   const { email, score } = req.body;
+  console.log(req.body); // Debug log to check incoming request data
 
-  const updateQuery = `UPDATE User SET score = ? WHERE userName = ?`;
-  db.query(updateQuery, [score, email], (err, result) => {
-    if (err) {
-      return res.status(500).json({ error: 'Database error' });
-    }
-
-    if (result.affectedRows > 0) {
-      res.json({ message: 'Score updated successfully' });
-    } else {
-      res.status(404).json({ error: 'User not found' });
-    }
-  });
+  try {
+    await db.query(`UPDATE User SET score = ? WHERE email = ?`, [score, email]);
+    res.status(200).send({ message: 'Score updated successfully' });
+  } catch (error) {
+    console.error('Error updating score:', error);
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
 });
 
 // Start the server
