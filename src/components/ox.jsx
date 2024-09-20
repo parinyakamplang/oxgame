@@ -60,7 +60,6 @@ function Board({ squares, on_square_click }) {
   );
 }
 
-
 // Add CSS styles
 const styles = `
 .board-container {

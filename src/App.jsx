@@ -4,6 +4,7 @@ import axios from 'axios';
 import Game from './components/ox';
 import { FloatButton, Button, Row, Col, Image } from 'antd'
 import { LogoutOutlined, GoogleOutlined } from '@ant-design/icons';
+import './App.css';
 
 function App() {
     const [user, setUser] = useState([]);
@@ -48,6 +49,7 @@ function App() {
     const logOut = () => {
         googleLogout();
         setProfile(null);
+        localStorage.clear()
     };
    // background: 'linear-gradient(200deg,#008F7A,#008E9B, #0089BA, #0081CF,#2C73D2 ,#845EC2)'
     return (
@@ -73,13 +75,14 @@ function App() {
                 <Row>
                     <Col sm={{ span: 1 }} md={{ span: 12 }}  style={{ color: '#FFF' }} >
                         <center style={{ marginTop: '35%' }}>
-                            <h1 style={{ color: '#FFF' }}>{profile ? 'OX Game' : 'Welcome to OX Game.'}</h1>
+                            <h1 className='neonTextg' style={{ color: '#FFF',fontSize:'48px' }}>{profile ? 'OX Game' : 'Welcome to OX Game'}</h1>
                             <br />
                             <Button onClick={() => login()} style={{ fontSize: '1.2rem', margin: '0.5rem', height: '3rem' }}>
                                 <GoogleOutlined style={{ color: 'red' }} /> Sign in with Google
                             </Button>
-                            <h3>Gamers! </h3>
-                            <p> Finally, it's time to Compete with each other, grab your weapon, aim and get ready</p>
+                            <br /><br />
+                            <h1 className='neonTextG'>Gamers! </h1>
+                            <h3 className='neonTextG'> Finally, it's time to Compete with each other, grab your weapon, aim and get ready</h3>
                         </center>
                     </Col>
                     <Col sm={{ span: 22 }} md={{ span: 12 }}>
