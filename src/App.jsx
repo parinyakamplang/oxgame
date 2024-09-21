@@ -8,6 +8,7 @@ import './App.css';
 import { useNavigate } from 'react-router-dom';
 import Leaderboard from './components/Leaderboard';
 import Modal from 'react-modal';
+import Rule from './components/rule';
 
 Modal.setAppElement('#root');  
 
@@ -138,8 +139,7 @@ function App() {
                             },
                           }}
                     >
-                        <h2>OX Game Rules</h2>
-                        <p>OX Game rules go here...</p>
+                        <Rule/>
                     </Modal>
 
                     <Modal
