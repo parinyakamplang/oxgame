@@ -95,7 +95,7 @@ function App() {
                             </center>
                         </Col>
                         <Col sm={{ span: 1 }} md={{ span: 6 }}>
-                            <Image preview={false} src='/xia-galaxy.gif' style={{ backgroundSize: 'cover', opacity: 0.4, borderRadius: '100%', width: '350px' }} />
+                            <Image preview={false} src='/xia-galaxy.gif' style={{ marginTop:'-15%',backgroundSize: 'cover', opacity: 0.4, borderRadius: '100%', width: '350px' }} />
                         </Col>
                         <Col sm={{ span: 22 }} md={{ span: 12 }}>
                             <Game profile={profile} />
@@ -109,7 +109,7 @@ function App() {
                         />
 
                         <FloatButton
-                            description="Rules"
+                            description="Info"
                             style={{ width: '60px', height: '40px', insetInlineEnd: '15%', backgroundColor: '#FF6F61' }}
                             icon={<InfoCircleOutlined />} shape="square" onClick={showRules}
                         />
